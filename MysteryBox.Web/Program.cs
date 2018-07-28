@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MysteryBox.Web
+namespace MysteryBox.WebService
 {
     public class Program
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MysteryBox.Web.Controllers
+namespace MysteryBox.WebService.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
