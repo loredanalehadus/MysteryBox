@@ -15,7 +15,7 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
     [Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public partial class EnvelopeBody
+    public class EnvelopeBody
     {
         [XmlElement(Namespace = "https://sandbox.domainbox.net/")]
         public CreateContact CreateContact { get; set; }
@@ -25,17 +25,17 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     [XmlRoot(Namespace = "https://sandbox.domainbox.net/", IsNullable = false)]
-    public partial class CreateContact
+    public class CreateContact
     {
-        public CreateContactAuthenticationParameters AuthenticationParameters { get; set; }
+        public AuthenticationParameters AuthenticationParameters { get; set; }
 
-        public CreateContactCommandParameters CommandParameters { get; set; }
+        public CommandParameters CommandParameters { get; set; }
     }
 
     [Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public partial class CreateContactAuthenticationParameters
+    public class AuthenticationParameters
     {
         public string Reseller { get; set; }
 
@@ -43,23 +43,23 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
 
         public string Password { get; set; }
     }
-    
+
     [Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public partial class CreateContactCommandParameters
+    public partial class CommandParameters
     {
         public string TLD { get; set; }
 
         public string LaunchPhase { get; set; }
 
-        public CreateContactCommandParametersContact Contact { get; set; }
+        public Contact Contact { get; set; }
     }
-    
+
     [Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public partial class CreateContactCommandParametersContact
+    public class Contact
     {
         public string Name { get; set; }
 
@@ -67,9 +67,9 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
 
         public string Street1 { get; set; }
 
-        public object Street2 { get; set; }
+        public string Street2 { get; set; }
 
-        public object Street3 { get; set; }
+        public string Street3 { get; set; }
 
         public string City { get; set; }
 
@@ -79,12 +79,12 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
 
         public string CountryCode { get; set; }
 
-        public decimal Telephone { get; set; }
+        public string Telephone { get; set; }
 
-        public object TelephoneExtension { get; set; }
+        public string TelephoneExtension { get; set; }
 
         public string Email { get; set; }
 
-        public object Fax { get; set; }
+        public string Fax { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
 {
     public interface IDomainboxServiceClient
     {
-        Task<string> RequestSoapAction<T>(string payload) where T : class;
+        Task<T> RequestSoapAction<T>(string payload) where T : class;
     }
 }

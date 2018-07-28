@@ -35,13 +35,13 @@ namespace MysteryBox.WebService.Models.Domainbox.Response
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     public class Result
     {
-        public byte ResultCode { get; set; }
+        public int ResultCode { get; set; }
 
         public string ResultMsg { get; set; }
 
         public string TxID { get; set; }
 
-        public uint ContactId { get; set; }
+        public int ContactId { get; set; }
 
         [XmlArrayItem(IsNullable = false)]
         public string[] TLDs { get; set; }
