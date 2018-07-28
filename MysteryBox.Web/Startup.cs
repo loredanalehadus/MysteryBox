@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MysteryBox.WebService.Services;
 using MysteryBox.WebService.Services.Common;
 using MysteryBox.WebService.Services.ExternalServiceClient;
 
@@ -44,7 +43,7 @@ namespace MysteryBox.WebService
 
         private static void ConfigureDomainServices(IServiceCollection services)
         {
-            services.AddSingleton<IDomainboxXmlService, DomainboxXmlService>();
+            services.AddSingleton<IXmlService, XmlService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

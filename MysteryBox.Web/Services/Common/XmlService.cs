@@ -4,9 +4,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using MysteryBox.WebService.Exceptions;
 
-namespace MysteryBox.WebService.Services
+namespace MysteryBox.WebService.Services.Common
 {
-    public class DomainboxXmlService : IDomainboxXmlService
+    public class XmlService : IXmlService
     {
         public string Serialize<T>(T payload) where T : class
         {
