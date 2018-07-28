@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using MysteryBox.WebService.Exceptions;
 
 namespace MysteryBox.WebService.Services.Common
@@ -43,7 +41,7 @@ namespace MysteryBox.WebService.Services.Common
             return this;
         }
 
-        public async Task<TResult> SendWithXmlResponse<TResult>() where TResult : class
+        public async Task<string> SendWithXmlResponse()
         {
             try
             {
@@ -55,14 +53,13 @@ namespace MysteryBox.WebService.Services.Common
 
                     using (var httpResponseMessage = await client.SendAsync(httpRequestMessage))
                     {
-                        var responseContent = await httpResponseMessage.Content.ReadAsStringAsync();
-                        return DeserializeXml<TResult>(responseContent);
+                        return await httpResponseMessage.Content.ReadAsStringAsync();
                     }
                 }
             }
             catch (Exception e)
             {
-                throw new ServiceClientException($"An error occured processing request to : {_httpClient.BaseAddress}", e);
+                throw new ServiceClientException(_httpClient.BaseAddress.ToString(), e);
             }
         }
 
@@ -72,16 +69,6 @@ namespace MysteryBox.WebService.Services.Common
             foreach (var header in httpRequestHeaders)
             {
                 httpRequestMessage.Headers.Add(header.Key, header.Value);
-            }
-        }
-
-        private TResponse DeserializeXml<TResponse>(string content) where TResponse : class
-        {
-            using (var stringReader = new StringReader(content))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(TResponse));
-                var data = xmlSerializer.Deserialize(stringReader) as TResponse;
-                return data;
             }
         }
 

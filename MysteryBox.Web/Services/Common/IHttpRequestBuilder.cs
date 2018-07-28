@@ -10,6 +10,6 @@ namespace MysteryBox.WebService.Services.Common
         IHttpRequestBuilder WithPayload(string payload, string contentType);
         IHttpRequestBuilder WithHttpMethod(HttpMethod httpMethod);
         IHttpRequestBuilder WithHttpRequestHeaders(Dictionary<string, string> httpRequestHeaders);
-        Task<TResult> SendWithXmlResponse<TResult>() where TResult : class;
+        Task<string> SendWithXmlResponse();
     }
 }

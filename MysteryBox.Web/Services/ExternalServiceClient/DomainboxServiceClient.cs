@@ -18,13 +18,13 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
             _httpClient = new HttpClient { BaseAddress = new Uri(configuration["Domainbox:Url"]) };
         }
 
-        public async Task<T> RequestSoapAction<T>(string payload) where T : class
+        public async Task<string> RequestSoapAction<T>(string payload) where T : class
         {
             var response = await _httpClient.HttpRequestBuilder()
                 .WithPayload(payload, "text/xml")
                 .WithHttpMethod(HttpMethod.Post)
                 .WithHttpRequestHeaders(new Dictionary<string, string> { { "SOAPAction", GetSoapActionName<T>() } })
-               .SendWithXmlResponse<T>();
+               .SendWithXmlResponse();
             return response;
         }
 
