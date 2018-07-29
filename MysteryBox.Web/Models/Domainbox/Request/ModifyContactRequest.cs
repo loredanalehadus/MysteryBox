@@ -4,38 +4,36 @@ using System.Xml.Serialization;
 
 namespace MysteryBox.WebService.Models.Domainbox.Request
 {
-    [Serializable]
-    [DesignerCategory("code")]
     [XmlRoot("Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope", IsNullable = false)]
-    public class CreateContactRequest
+    public class ModifyContactRequest
     {
-        public EnvelopeBody Body { get; set; }
+        [XmlElement("EnvelopeBody")] public ModifyContactRequestEnvelopeBody Body { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class EnvelopeBody
+    public class ModifyContactRequestEnvelopeBody
     {
         [XmlElement(Namespace = "https://sandbox.domainbox.net/")]
-        public CreateContact CreateContact { get; set; }
+        public ModifyContact ModifyContact { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     [XmlRoot(Namespace = "https://sandbox.domainbox.net/", IsNullable = false)]
-    public class CreateContact
+    public class ModifyContact
     {
-        public AuthenticationParameters AuthenticationParameters { get; set; }
+        public ModifyContactAuthenticationParameters AuthenticationParameters { get; set; }
 
-        public CommandParameters CommandParameters { get; set; }
+        public ModifyContactCommandParameters CommandParameters { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class AuthenticationParameters
+    public class ModifyContactAuthenticationParameters
     {
         public string Reseller { get; set; }
 
@@ -47,19 +45,17 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class CommandParameters
+    public class ModifyContactCommandParameters
     {
-        public string TLD { get; set; }
+        public int ContactId { get; set; }
 
-        public string LaunchPhase { get; set; }
-
-        public Contact Contact { get; set; }
+        public ModifyContactCommandParametersContact Contact { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class Contact
+    public class ModifyContactCommandParametersContact
     {
         public string Name { get; set; }
 

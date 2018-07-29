@@ -29,5 +29,12 @@ namespace MysteryBox.WebService.Services
             var createContactResponse = await _domainboxServiceClient.RequestSoapAction<CreateContactResponse>(requestPayload);
             return _responseMapper.From(createContactResponse);
         }
+
+        public async Task Modify(int contactId, ContactRequest contactRequest)
+        {
+            var modifyContactRequest = _requestMapper.From(contactRequest, contactId);
+            var requestPayload = _xmlService.Serialize(modifyContactRequest);
+            var modifyContactResponse = await _domainboxServiceClient.RequestSoapAction<ModifyContactResponse>(requestPayload);
+        }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MysteryBox.WebService.Models;
 using MysteryBox.WebService.Services;
 
@@ -17,10 +17,17 @@ namespace MysteryBox.WebService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContact([FromBody]ContactRequest contactRequest)
+        public async Task<IActionResult> Post([FromBody]ContactRequest contactRequest)
         {
             var response = await _contactService.Create(contactRequest);
             return Ok(response);
+        }
+
+        [HttpPut("{contactId}")]
+        public async Task<IActionResult> Put(int contactId, [FromBody]ContactRequest contactRequest)
+        {
+            await _contactService.Modify(contactId, contactRequest);
+            return Ok();
         }
     }
 }

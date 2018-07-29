@@ -4,46 +4,41 @@ using System.Xml.Serialization;
 
 namespace MysteryBox.WebService.Models.Domainbox.Response
 {
-    [Serializable, DesignerCategory("code"),
-     XmlRoot("Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope", IsNullable = false)]
-    public class CreateContactResponse
+    [Serializable]
+    [DesignerCategory("code")]
+    [XmlRoot("Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope", IsNullable = false)]
+    public class ModifyContactResponse
     {
-        public EnvelopeBody Body { get; set; }
+        [XmlElement("EnvelopeBody")] public ModifyContactResponseEnvelopeBody Body { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class EnvelopeBody
+    public class ModifyContactResponseEnvelopeBody
     {
-        [XmlElement("CreateContactResponse", Namespace = "https://sandbox.domainbox.net/")]
-        public CreateContactEnvelopeResponse Response { get; set; }
+        [XmlElement("ModifyContactResponse", Namespace = "https://sandbox.domainbox.net/")]
+        public ModifyContactEnvelopeResponse Response { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     [XmlRoot(Namespace = "https://sandbox.domainbox.net/", IsNullable = false)]
-    public class CreateContactEnvelopeResponse
+    public class ModifyContactEnvelopeResponse
     {
-        [XmlElement("CreateContactResult")]
-        public Result Result { get; set; }
+        public ModifyContactResult ModifyContactResult { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class Result
+    public class ModifyContactResult
     {
-        public int ResultCode { get; set; }
+        public byte ResultCode { get; set; }
 
         public string ResultMsg { get; set; }
 
         public string TxID { get; set; }
-
-        public int ContactId { get; set; }
-
-        [XmlArrayItem(IsNullable = false)]
-        public string[] TLDs { get; set; }
     }
 }

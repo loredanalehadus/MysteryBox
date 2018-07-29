@@ -45,7 +45,8 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
 
         private readonly Dictionary<Type, string> _soapActionsByType = new Dictionary<Type, string>
         {
-            {typeof(CreateContactResponse), "CreateContact" }
+            {typeof(CreateContactResponse), "CreateContact" },
+            {typeof(ModifyContactResponse), "ModifyContract" }
         };
     }
 }

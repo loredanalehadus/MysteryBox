@@ -6,5 +6,6 @@ namespace MysteryBox.WebService.Services
     public interface IContactService
     {
         Task<ContactResponse> Create(ContactRequest contactRequest);
+        Task Modify(int contactId, ContactRequest contactRequest);
     }
 }
