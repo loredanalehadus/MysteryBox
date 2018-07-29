@@ -7,5 +7,6 @@ namespace MysteryBox.WebService.Services.Mappers
     {
         ContactResponse From(CreateContactResponse createContactResponse);
         ContactDetailsResponse From(QueryContactResponse queryContactResponse);
+        ContactResponse From(DeleteContactResponse deleteContactResponse, int contactId);
     }
 }

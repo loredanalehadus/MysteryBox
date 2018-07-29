@@ -5,8 +5,9 @@ namespace MysteryBox.WebService.Services.Mappers
 {
     public interface IContactRequestMapper
     {
-        CreateContactRequest From(ContactRequest contactRequest);
-        ModifyContactRequest From(ContactRequest contactRequest, int contactId);
-        QueryContactRequest From(int contactId);
+        CreateContactRequest ToCreateContact(ContactRequest contactRequest);
+        ModifyContactRequest ToModifyContact(ContactRequest contactRequest, int contactId);
+        QueryContactRequest ToQueryContact(int contactId);
+        DeleteContactRequest ToDeleteContact(int contactId);
     }
 }

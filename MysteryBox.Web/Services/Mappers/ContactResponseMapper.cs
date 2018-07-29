@@ -22,11 +22,11 @@ namespace MysteryBox.WebService.Services.Mappers
 
             return new ContactDetailsResponse
             {
-                Id = queryContactResponse.Body.Response.Result.Contact.ContactId,
+                Id = queryContact?.ContactId,
                 TLDs = queryContactResponse.Body.Response.Result.TLDs,
                 ResultCode = queryContactResponse.Body.Response.Result.ResultCode,
                 ResultMessage = queryContactResponse.Body.Response.Result.ResultMsg,
-                Contact = new Contact
+                Contact = queryContact != null ? new Contact
                 {
                     City = queryContact.City,
                     CountryCode = queryContact.CountryCode,
@@ -42,8 +42,21 @@ namespace MysteryBox.WebService.Services.Mappers
                     Telephone = queryContact.Telephone,
                     TelephoneExtension = queryContact.TelephoneExtension,
                     CustomerId = queryContact.CustomerId
-                },
+                }
+                :null,
                 Linked = queryContactResponse.Body.Response.Result.Linked
+            };
+        }
+
+        public ContactResponse From(DeleteContactResponse deleteContactResponse, int contactId)
+        {
+            var result = deleteContactResponse.Body.Response.DeleteContactResult;
+            return new ContactResponse
+            {
+                Id = contactId,
+                ResultCode = result.ResultCode,
+                ResultMessage = result.ResultMsg,
+                TLDs = null
             };
         }
     }

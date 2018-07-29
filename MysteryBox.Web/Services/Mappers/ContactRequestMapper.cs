@@ -17,7 +17,7 @@ namespace MysteryBox.WebService.Services.Mappers
             _password = configuration["Domainbox:Password"];
         }
 
-        public CreateContactRequest From(ContactRequest contactRequest)
+        public CreateContactRequest ToCreateContact(ContactRequest contactRequest)
         {
             return new CreateContactRequest
             {
@@ -57,7 +57,7 @@ namespace MysteryBox.WebService.Services.Mappers
             };
         }
 
-        public ModifyContactRequest From(ContactRequest contactRequest, int contactId)
+        public ModifyContactRequest ToModifyContact(ContactRequest contactRequest, int contactId)
         {
             return new ModifyContactRequest
             {
@@ -96,7 +96,7 @@ namespace MysteryBox.WebService.Services.Mappers
             };
         }
 
-        public QueryContactRequest From(int contactId)
+        public QueryContactRequest ToQueryContact(int contactId)
         {
             return new QueryContactRequest
             {
@@ -111,6 +111,29 @@ namespace MysteryBox.WebService.Services.Mappers
                             Reseller = _reseller
                         },
                         CommandParameters = new QueryContactCommandParameters
+                        {
+                            ContactId = contactId
+                        }
+                    }
+                }
+            };
+        }
+
+        public DeleteContactRequest ToDeleteContact(int contactId)
+        {
+            return new DeleteContactRequest
+            {
+                Body = new DeleteContactRequestEnvelopeBody
+                {
+                    DeleteContact = new DeleteContact
+                    {
+                        AuthenticationParameters = new DeleteContactAuthenticationParameters
+                        {
+                            Username = _username,
+                            Password = _password,
+                            Reseller = _reseller
+                        },
+                        CommandParameters = new DeleteContactCommandParameters
                         {
                             ContactId = contactId
                         }

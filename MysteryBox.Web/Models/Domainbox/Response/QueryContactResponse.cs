@@ -38,7 +38,7 @@ namespace MysteryBox.WebService.Models.Domainbox.Response
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     public class QueryContactResult
     {
-        public byte ResultCode { get; set; }
+        public int ResultCode { get; set; }
 
         public string ResultMsg { get; set; }
 

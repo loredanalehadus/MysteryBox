@@ -24,7 +24,7 @@ namespace MysteryBox.WebService.Services
 
         public async Task<ContactResponse> Create(ContactRequest contactRequest)
         {
-            var createContactRequest = _requestMapper.From(contactRequest);
+            var createContactRequest = _requestMapper.ToCreateContact(contactRequest);
             var requestPayload = _xmlService.Serialize(createContactRequest);
             var createContactResponse = await _domainboxServiceClient.RequestSoapAction<CreateContactResponse>(requestPayload);
             return _responseMapper.From(createContactResponse);
@@ -32,17 +32,25 @@ namespace MysteryBox.WebService.Services
 
         public async Task Modify(int contactId, ContactRequest contactRequest)
         {
-            var modifyContactRequest = _requestMapper.From(contactRequest, contactId);
+            var modifyContactRequest = _requestMapper.ToModifyContact(contactRequest, contactId);
             var requestPayload = _xmlService.Serialize(modifyContactRequest);
             await _domainboxServiceClient.RequestSoapAction<ModifyContactResponse>(requestPayload);
         }
 
         public async Task<ContactResponse> Get(int contactId)
         {
-            var queryContactRequest = _requestMapper.From(contactId);
+            var queryContactRequest = _requestMapper.ToQueryContact(contactId);
             var requestPayload = _xmlService.Serialize(queryContactRequest);
             var queryContactResponse = await _domainboxServiceClient.RequestSoapAction<QueryContactResponse>(requestPayload);
             return _responseMapper.From(queryContactResponse);
+        }
+
+        public async Task<ContactResponse> Delete(int contactId)
+        {
+            var deleteContactRequest = _requestMapper.ToDeleteContact(contactId);
+            var requestPayload = _xmlService.Serialize(deleteContactRequest);
+            var deleteContactResponse = await _domainboxServiceClient.RequestSoapAction<DeleteContactResponse>(requestPayload);
+            return _responseMapper.From(deleteContactResponse, contactId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MysteryBox.WebService.Models;
 using MysteryBox.WebService.Services;
@@ -34,7 +35,26 @@ namespace MysteryBox.WebService.Controllers
         public async Task<IActionResult> Get(int contactId)
         {
             var response = await _contactService.Get(contactId);
+
+            if (response.HasError)
+            {
+                return BadRequest(response.ResultMessage);
+            }
+
             return Ok(response);
+        }
+
+        [HttpDelete("{contactId}")]
+        public async Task<IActionResult> Delete(int contactId)
+        {
+            var response = await _contactService.Delete(contactId);
+
+            if (response.HasError)
+            {
+                return BadRequest(response.ResultMessage);
+            }
+
+            return Ok();
         }
     }
 }

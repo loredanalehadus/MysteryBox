@@ -68,6 +68,7 @@ namespace MysteryBox.WebService
             }
 
             app.UseMvc();
+            app.UseStatusCodePages();
         }
     }
 }

@@ -47,7 +47,8 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
         {
             {typeof(CreateContactResponse), "CreateContact" },
             {typeof(ModifyContactResponse), "ModifyContact" },
-            {typeof(QueryContactResponse), "QueryContact" }
+            {typeof(QueryContactResponse), "QueryContact" },
+            {typeof(DeleteContactResponse), "DeleteContact" }
         };
     }
 }
