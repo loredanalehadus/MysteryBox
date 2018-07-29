@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Net.Http;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +37,7 @@ namespace MysteryBox.WebService
 
         private static void ConfigureCommonServices(IServiceCollection services)
         {
-            services.AddSingleton<IHttpRequestBuilder, HttpRequestBuilder>();
+            services.AddTransient<IHttpRequestBuilder, HttpRequestBuilder>();
             services.AddSingleton<IXmlService, XmlService>();
         }
 

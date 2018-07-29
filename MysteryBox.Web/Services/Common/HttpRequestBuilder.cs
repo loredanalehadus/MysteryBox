@@ -12,11 +12,13 @@ namespace MysteryBox.WebService.Services.Common
         private readonly HttpClient _httpClient;
         private StringContent _payload;
         private HttpMethod _httpMethod;
+        private Uri _requestUri;
         private Dictionary<string, string> _httpRequestHeaders = new Dictionary<string, string>();
-
-        public HttpRequestBuilder(HttpClient httpClient)
+        
+        public IHttpRequestBuilder WithRequestUri(string url)
         {
-            _httpClient = httpClient;
+            _requestUri = new Uri(url);
+            return this;
         }
 
         public IHttpRequestBuilder WithPayload(string payload, string contentType)
@@ -45,9 +47,9 @@ namespace MysteryBox.WebService.Services.Common
         {
             try
             {
-                using (var client = _httpClient)
+                using (var client = new HttpClient())
                 {
-                    var httpRequestMessage = new HttpRequestMessage(_httpMethod, _httpClient.BaseAddress);
+                    var httpRequestMessage = new HttpRequestMessage(_httpMethod, _requestUri);
                     SetHttpRequestHeaders(_httpRequestHeaders, ref httpRequestMessage);
                     httpRequestMessage.Content = _payload;
 
@@ -59,7 +61,7 @@ namespace MysteryBox.WebService.Services.Common
             }
             catch (Exception e)
             {
-                throw new ServiceClientException(_httpClient.BaseAddress.ToString(), e);
+                throw new ServiceClientException(_requestUri.ToString(), e);
             }
         }
 
@@ -70,11 +72,6 @@ namespace MysteryBox.WebService.Services.Common
             {
                 httpRequestMessage.Headers.Add(header.Key, header.Value);
             }
-        }
-
-        public void Dispose()
-        {
-            _payload?.Dispose();
         }
     }
 }

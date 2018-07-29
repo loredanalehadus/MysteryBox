@@ -11,22 +11,23 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
 {
     public class DomainboxServiceClient : IDomainboxServiceClient
     {
-        private readonly HttpClient _httpClient;
         private readonly IXmlService _xmlService;
+        private readonly string _url;
 
         public DomainboxServiceClient(IConfiguration configuration, IXmlService xmlService)
         {
             _xmlService = xmlService;
-            _httpClient = new HttpClient { BaseAddress = new Uri(configuration["Domainbox:Url"]) };
+            _url = configuration["Domainbox:Url"];
         }
 
         public async Task<T> RequestSoapAction<T>(string payload) where T : class
         {
-            var response = await _httpClient.HttpRequestBuilder()
+            var response = await new HttpRequestBuilder()
+                .WithRequestUri(_url)
                 .WithPayload(payload, "text/xml")
                 .WithHttpMethod(HttpMethod.Post)
                 .WithHttpRequestHeaders(new Dictionary<string, string> { { "SOAPAction", GetSoapActionName<T>() } })
-               .SendWithXmlResponse();
+                .SendWithXmlResponse();
 
             return _xmlService.DeserializeXml<T>(response);
         }
