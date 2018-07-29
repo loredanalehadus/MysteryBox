@@ -6,5 +6,6 @@ namespace MysteryBox.WebService.Services.Mappers
     public interface IContactResponseMapper
     {
         ContactResponse From(CreateContactResponse createContactResponse);
+        ContactDetailsResponse From(QueryContactResponse queryContactResponse);
     }
 }

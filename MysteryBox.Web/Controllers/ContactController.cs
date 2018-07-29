@@ -29,5 +29,12 @@ namespace MysteryBox.WebService.Controllers
             await _contactService.Modify(contactId, contactRequest);
             return Ok();
         }
+
+        [HttpGet("{contactId}")]
+        public async Task<IActionResult> Get(int contactId)
+        {
+            var response = await _contactService.Get(contactId);
+            return Ok(response);
+        }
     }
 }

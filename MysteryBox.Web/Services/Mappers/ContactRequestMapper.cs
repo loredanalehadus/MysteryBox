@@ -35,21 +35,21 @@ namespace MysteryBox.WebService.Services.Mappers
                         {
                             LaunchPhase = contactRequest.LaunchPhase,
                             TLD = contactRequest.TLD,
-                            Contact = new Contact
+                            Contact = new CreateContactCommandParametersContact
                             {
-                                City = contactRequest.City,
-                                CountryCode = contactRequest.CountryCode,
-                                Email = contactRequest.Email,
-                                Fax = contactRequest.Fax,
-                                Name = contactRequest.Name,
-                                Organisation = contactRequest.Organisation,
-                                Postcode = contactRequest.PostCode,
-                                State = contactRequest.State,
-                                Street1 = contactRequest.Street1,
-                                Street2 = contactRequest.Street2,
-                                Street3 = contactRequest.Street3,
-                                Telephone = contactRequest.Telephone,
-                                TelephoneExtension = contactRequest.TelephoneExtension
+                                City = contactRequest.Contact.City,
+                                CountryCode = contactRequest.Contact.CountryCode,
+                                Email = contactRequest.Contact.Email,
+                                Fax = contactRequest.Contact.Fax,
+                                Name = contactRequest.Contact.Name,
+                                Organisation = contactRequest.Contact.Organisation,
+                                Postcode = contactRequest.Contact.Postcode,
+                                State = contactRequest.Contact.State,
+                                Street1 = contactRequest.Contact.Street1,
+                                Street2 = contactRequest.Contact.Street2,
+                                Street3 = contactRequest.Contact.Street3,
+                                Telephone = contactRequest.Contact.Telephone,
+                                TelephoneExtension = contactRequest.Contact.TelephoneExtension
                             }
                         }
                     }
@@ -76,20 +76,43 @@ namespace MysteryBox.WebService.Services.Mappers
                             ContactId = contactId,
                             Contact = new ModifyContactCommandParametersContact
                             {
-                                City = contactRequest.City,
-                                CountryCode = contactRequest.CountryCode,
-                                Email = contactRequest.Email,
-                                Fax = contactRequest.Fax,
-                                Name = contactRequest.Name,
-                                Organisation = contactRequest.Organisation,
-                                Postcode = contactRequest.PostCode,
-                                State = contactRequest.State,
-                                Street1 = contactRequest.Street1,
-                                Street2 = contactRequest.Street2,
-                                Street3 = contactRequest.Street3,
-                                Telephone = contactRequest.Telephone,
-                                TelephoneExtension = contactRequest.TelephoneExtension
+                                City = contactRequest.Contact.City,
+                                CountryCode = contactRequest.Contact.CountryCode,
+                                Email = contactRequest.Contact.Email,
+                                Fax = contactRequest.Contact.Fax,
+                                Name = contactRequest.Contact.Name,
+                                Organisation = contactRequest.Contact.Organisation,
+                                Postcode = contactRequest.Contact.Postcode,
+                                State = contactRequest.Contact.State,
+                                Street1 = contactRequest.Contact.Street1,
+                                Street2 = contactRequest.Contact.Street2,
+                                Street3 = contactRequest.Contact.Street3,
+                                Telephone = contactRequest.Contact.Telephone,
+                                TelephoneExtension = contactRequest.Contact.TelephoneExtension
                             }
+                        }
+                    }
+                }
+            };
+        }
+
+        public QueryContactRequest From(int contactId)
+        {
+            return new QueryContactRequest
+            {
+                Body = new QueryContactRequestEnvelopeBody
+                {
+                    QueryContact = new QueryContact
+                    {
+                        AuthenticationParameters = new QueryContactAuthenticationParameters
+                        {
+                            Username = _username,
+                            Password = _password,
+                            Reseller = _reseller
+                        },
+                        CommandParameters = new QueryContactCommandParameters
+                        {
+                            ContactId = contactId
                         }
                     }
                 }

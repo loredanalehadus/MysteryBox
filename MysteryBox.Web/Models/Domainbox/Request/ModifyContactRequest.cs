@@ -7,7 +7,7 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
     [XmlRoot("Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope", IsNullable = false)]
     public class ModifyContactRequest
     {
-        [XmlElement("EnvelopeBody")] public ModifyContactRequestEnvelopeBody Body { get; set; }
+        public ModifyContactRequestEnvelopeBody Body { get; set; }
     }
 
     [Serializable]

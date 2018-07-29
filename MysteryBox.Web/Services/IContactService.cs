@@ -7,5 +7,6 @@ namespace MysteryBox.WebService.Services
     {
         Task<ContactResponse> Create(ContactRequest contactRequest);
         Task Modify(int contactId, ContactRequest contactRequest);
+        Task<ContactResponse> Get(int contactId);
     }
 }

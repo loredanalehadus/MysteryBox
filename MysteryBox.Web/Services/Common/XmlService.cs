@@ -40,10 +40,17 @@ namespace MysteryBox.WebService.Services.Common
 
         public T DeserializeXml<T>(string content) where T : class
         {
-            using (var stringReader = new StringReader(content))
+            try
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return xmlSerializer.Deserialize(stringReader) as T;
+                using (var stringReader = new StringReader(content))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(T));
+                    return xmlSerializer.Deserialize(stringReader) as T;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new XmlDeserializationException(content, e);
             }
         }
     }

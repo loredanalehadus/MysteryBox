@@ -2,64 +2,61 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace MysteryBox.WebService.Models.Domainbox.Request
+namespace MysteryBox.WebService.Models.Domainbox.Response
 {
     [Serializable]
     [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     [XmlRoot("Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope", IsNullable = false)]
-    public class CreateContactRequest
+    public class QueryContactResponse
     {
-        public EnvelopeBody Body { get; set; }
+        public QueryContactResponseEnvelopeBody Body { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class EnvelopeBody
+    public class QueryContactResponseEnvelopeBody
     {
-        [XmlElement(Namespace = "https://sandbox.domainbox.net/")]
-        public CreateContact CreateContact { get; set; }
+
+        [XmlElement("QueryContactResponse", Namespace = "https://sandbox.domainbox.net/")]
+        public QueryContactEnvelopeResponse Response { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
     [XmlRoot(Namespace = "https://sandbox.domainbox.net/", IsNullable = false)]
-    public class CreateContact
+    public class QueryContactEnvelopeResponse
     {
-        public AuthenticationParameters AuthenticationParameters { get; set; }
-
-        public CommandParameters CommandParameters { get; set; }
+        [XmlElement("QueryContactResult")]
+        public QueryContactResult Result { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class AuthenticationParameters
+    public class QueryContactResult
     {
-        public string Reseller { get; set; }
+        public byte ResultCode { get; set; }
 
-        public string Username { get; set; }
+        public string ResultMsg { get; set; }
 
-        public string Password { get; set; }
+        public string TxID { get; set; }
+
+        [XmlElement("Contact")]
+        public QueryResultContact Contact { get; set; }
+
+        public bool Linked { get; set; }
+
+        [XmlArrayItem(IsNullable = false)]
+        public string[] TLDs { get; set; }
     }
 
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class CommandParameters
-    {
-        public string TLD { get; set; }
-
-        public string LaunchPhase { get; set; }
-
-        public CreateContactCommandParametersContact Contact { get; set; }
-    }
-
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(AnonymousType = true, Namespace = "https://sandbox.domainbox.net/")]
-    public class CreateContactCommandParametersContact
+    public class QueryResultContact
     {
         public string Name { get; set; }
 
@@ -83,8 +80,12 @@ namespace MysteryBox.WebService.Models.Domainbox.Request
 
         public string TelephoneExtension { get; set; }
 
+        public string Fax { get; set; }
+
         public string Email { get; set; }
 
-        public string Fax { get; set; }
+        public int ContactId { get; set; }
+
+        public string CustomerId { get; set; }
     }
 }
