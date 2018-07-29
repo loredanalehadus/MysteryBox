@@ -4,6 +4,21 @@ namespace MysteryBox.UnitTests.Mocks
 {
     public class ContactRequestBuilder
     {
+        private string _telephone = "+44.1234102010";
+        private string _email = "john.smith@smithcorp.com";
+
+        public ContactRequestBuilder WithTelephone(string value)
+        {
+            _telephone = value;
+            return this;
+        }
+
+        public ContactRequestBuilder WithEmail(string value)
+        {
+            _email = value;
+            return this;
+        }
+
         public ContactRequest Build()
         {
             return new ContactRequest
@@ -21,9 +36,9 @@ namespace MysteryBox.UnitTests.Mocks
                     State = "Somewhereshire",
                     Postcode = "SW1 2EV",
                     CountryCode = "GB",
-                    Telephone = "+44.1234102010",
+                    Telephone = _telephone,
                     TelephoneExtension = null,
-                    Email = "john.smith@smithcorp.com",
+                    Email = _email,
                     Fax = null
                 }
             };

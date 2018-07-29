@@ -1,4 +1,4 @@
-﻿using System.Net;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MysteryBox.WebService.Models;
@@ -20,6 +20,12 @@ namespace MysteryBox.WebService.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]ContactRequest contactRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(e => e.Errors);
+                return BadRequest(errors);
+            }
+
             var response = await _contactService.Create(contactRequest);
             return Ok(response);
         }
@@ -27,6 +33,12 @@ namespace MysteryBox.WebService.Controllers
         [HttpPut("{contactId}")]
         public async Task<IActionResult> Put(int contactId, [FromBody]ContactRequest contactRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(e => e.Errors);
+                return BadRequest(errors);
+            }
+
             await _contactService.Modify(contactId, contactRequest);
             return Ok();
         }

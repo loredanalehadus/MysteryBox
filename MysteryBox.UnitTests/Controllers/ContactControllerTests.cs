@@ -1,10 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using FluentAssertions;
-using MysteryBox.WebService.Controllers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.TestHost;
 using Moq;
 using MysteryBox.UnitTests.Mocks;
+using MysteryBox.WebService;
+using MysteryBox.WebService.Controllers;
 using MysteryBox.WebService.Services;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace MysteryBox.UnitTests.Controllers
@@ -30,6 +37,22 @@ namespace MysteryBox.UnitTests.Controllers
 
             var actionResult = await _controller.Post(contactRequest);
             actionResult.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task Create_WithInvalidInfo_ShouldReturnBadRequest()
+        {
+            var contactRequest = new ContactRequestBuilder().WithTelephone("invalid phone").WithEmail("invalid email").Build();
+
+            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            var client = server.CreateClient();
+            var content = new StringContent(JsonConvert.SerializeObject(contactRequest), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("/api/Contact", content);
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var respone = await result.Content.ReadAsStringAsync();
+            respone.Should().Contain("Email is not valid. Please enter a correct email format. E.g. name@company.com");
+            respone.Should().Contain("Phone number is not in correct format. The pattern is: +<InternationalDialingCode>.<TelephoneNumber>");
         }
 
         [Fact]
