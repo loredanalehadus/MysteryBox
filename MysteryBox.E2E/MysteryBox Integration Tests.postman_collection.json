@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "1646c216-c605-4b7b-8606-422116662766",
+		"name": "MysteryBox Integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0500b303-ddf7-41ed-bc2b-2912620f0c69",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"ContactId\", jsonData.id);",
+							"",
+							"tests[\"Status code is 200 OK\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"TLD\": \".com\",\r\n\t\"LaunchPhase\": \"GA\",\r\n\t\"Contact\": {\r\n\t\t\"Name\": \"John Smith\",\r\n\t\t\"Organisation\": \"Smith Corp.\",\r\n\t\t\"Street1\": \"123 Fake Street\",\r\n\t\t\"Street2\": null,\r\n\t\t\"Street3\": null,\r\n\t\t\"City\": \"Somewhere City\",\r\n\t\t\"State\": \"Somewhereshire\",\r\n\t\t\"PostCode\": \"SW1 2EV\",\r\n\t\t\"CountryCode\": \"GB\",\r\n\t\t\"Telephone\": \"+44.1234102010\",\r\n\t\t\"TelephoneExtension\": null,\r\n\t\t\"Email\": \"john.smith@smithcorp.com\",\r\n\t\t\"Fax\": null\r\n\t}\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{endpointUrl}}/api/Contact",
+					"host": [
+						"{{endpointUrl}}"
+					],
+					"path": [
+						"api",
+						"Contact"
+					]
+				},
+				"description": "Create a new contact"
+			},
+			"response": []
+		},
+		{
+			"name": "Modify contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1012f48-f1d0-4c52-848c-d59d4f9724b4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200 OK\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"TLD\": \".com\",\r\n\t\"LaunchPhase\": \"GA\",\r\n\t\"Contact\": {\r\n\t\t\"Name\": \"Jane Smith\",\r\n\t\t\"Organisation\": \"Smith Corp.\",\r\n\t\t\"Street1\": \"123 Not so Fake Street\",\r\n\t\t\"Street2\": \"100 Another Fake Street\",\r\n\t\t\"Street3\": null,\r\n\t\t\"City\": \"Somewhere City\",\r\n\t\t\"State\": \"Somewhereshire\",\r\n\t\t\"PostCode\": \"SW1 2EV\",\r\n\t\t\"CountryCode\": \"GB\",\r\n\t\t\"Telephone\": \"+44.1234102010\",\r\n\t\t\"TelephoneExtension\": null,\r\n\t\t\"Email\": \"jane.smith@test.com\",\r\n\t\t\"Fax\": null\r\n\t}\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{endpointUrl}}/api/contact/{{ContactId}}",
+					"host": [
+						"{{endpointUrl}}"
+					],
+					"path": [
+						"api",
+						"contact",
+						"{{ContactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22396892-9b0f-4bfb-9887-4c6ea960c1a5",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200 OK\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpointUrl}}/api/contact/{{ContactId}}",
+					"host": [
+						"{{endpointUrl}}"
+					],
+					"path": [
+						"api",
+						"contact",
+						"{{ContactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f52731a-1b0b-4c34-9e60-1ba7e84b123a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200 OK\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpointUrl}}/api/contact/{{ContactId}}",
+					"host": [
+						"{{endpointUrl}}"
+					],
+					"path": [
+						"api",
+						"contact",
+						"{{ContactId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
