@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysteryBox.Web", "MysteryBox.Web\MysteryBox.Web.csproj", "{A6C097FD-A018-4765-8A63-17C38465479D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MysteryBox.WebService", "MysteryBox.Web\MysteryBox.WebService.csproj", "{A6C097FD-A018-4765-8A63-17C38465479D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysteryBox.UnitTests", "MysteryBox.UnitTests\MysteryBox.UnitTests.csproj", "{453B264F-5703-4575-A45B-A1E146922634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MysteryBox.UnitTests", "MysteryBox.UnitTests\MysteryBox.UnitTests.csproj", "{453B264F-5703-4575-A45B-A1E146922634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
