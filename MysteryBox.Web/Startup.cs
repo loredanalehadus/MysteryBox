@@ -1,8 +1,8 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MysteryBox.WebService.Services;
 using MysteryBox.WebService.Services.Common;
@@ -43,6 +43,7 @@ namespace MysteryBox.WebService
         {
             services.AddTransient<IHttpRequestBuilder, HttpRequestBuilder>();
             services.AddSingleton<IXmlService, XmlService>();
+            services.TryAddSingleton(typeof(ILoggingService<>), typeof(LoggingService<>));
         }
 
         private static void ConfigureExternalServiceClients(IServiceCollection services)

@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MysteryBox.Web\MysteryBox.WebService.csproj" />
   </ItemGroup>
 
