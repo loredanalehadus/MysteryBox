@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,7 @@ using MysteryBox.WebService.Services;
 using MysteryBox.WebService.Services.Common;
 using MysteryBox.WebService.Services.ExternalServiceClient;
 using MysteryBox.WebService.Services.Mappers;
+using NSwag.AspNetCore;
 
 namespace MysteryBox.WebService
 {
@@ -27,6 +29,9 @@ namespace MysteryBox.WebService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSwagger();
+            services.AddMvc(options => options.Filters.Add(new JsonExceptionFilterAttribute()));
 
             ConfigureCommonServices(services);
             ConfigureDomainServices(services);
@@ -59,6 +64,15 @@ namespace MysteryBox.WebService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSwaggerUiWithApiExplorer(settings =>
+            {
+                settings.PostProcess = document =>
+                {
+                    document.Info.Title = "Mystery box magic";
+                    document.Info.Description = "The app that turns SOAP requests into RESTful ones";
+                };
+            });
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
