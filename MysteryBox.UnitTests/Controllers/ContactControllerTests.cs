@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Logging;
 using Moq;
 using MysteryBox.UnitTests.Mocks;
 using MysteryBox.WebService;
@@ -20,11 +21,13 @@ namespace MysteryBox.UnitTests.Controllers
     {
         private readonly ContactController _controller;
         private readonly Mock<IContactService> _mockContactService;
+        private readonly Mock<ILogger<ContactController>> _mockLogger;
 
         public ContactControllerTests()
         {
             _mockContactService = new Mock<IContactService>(MockBehavior.Strict);
-            _controller = new ContactController(_mockContactService.Object);
+            _mockLogger = new Mock<ILogger<ContactController>>();
+            _controller = new ContactController(_mockContactService.Object, _mockLogger.Object);
         }
 
         [Fact]

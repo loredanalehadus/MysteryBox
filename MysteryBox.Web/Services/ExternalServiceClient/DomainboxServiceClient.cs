@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MysteryBox.WebService.Exceptions;
 using MysteryBox.WebService.Models.Domainbox.Response;
 using MysteryBox.WebService.Services.Common;
@@ -12,12 +13,14 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
     public class DomainboxServiceClient : IDomainboxServiceClient
     {
         private readonly IXmlService _xmlService;
+        private readonly ILogger<DomainboxServiceClient> _logger;
         private readonly string _url;
 
-        public DomainboxServiceClient(IConfiguration configuration, IXmlService xmlService)
+        public DomainboxServiceClient(IConfiguration configuration, IXmlService xmlService, ILogger<DomainboxServiceClient> logger)
         {
             _xmlService = xmlService;
             _url = configuration["Domainbox:Url"];
+            _logger = logger;
         }
 
         public async Task<T> RequestSoapAction<T>(string payload) where T : class
@@ -28,6 +31,8 @@ namespace MysteryBox.WebService.Services.ExternalServiceClient
                 .WithHttpMethod(HttpMethod.Post)
                 .WithHttpRequestHeaders(new Dictionary<string, string> { { "SOAPAction", GetSoapActionName<T>() } })
                 .SendWithXmlResponse();
+
+            _logger.LogInformation("Domainbox responded with 200 OK", response);
 
             return _xmlService.DeserializeXml<T>(response);
         }
