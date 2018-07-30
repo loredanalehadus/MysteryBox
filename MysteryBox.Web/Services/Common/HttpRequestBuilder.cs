@@ -9,7 +9,6 @@ namespace MysteryBox.WebService.Services.Common
 {
     public class HttpRequestBuilder : IHttpRequestBuilder
     {
-        private readonly HttpClient _httpClient;
         private StringContent _payload;
         private HttpMethod _httpMethod;
         private Uri _requestUri;
