@@ -151,6 +151,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get contacts list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{endpointUrl}}/api/contact?offset=0&limit=2",
+					"host": [
+						"{{endpointUrl}}"
+					],
+					"path": [
+						"api",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
