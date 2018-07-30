@@ -90,5 +90,11 @@ namespace MysteryBox.WebService.Controllers
             _loggingService.LogInformation("Successfully deleted contact '{ID}'", contactId);
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int offset = 0, int limit = 2)
+        {
+            return Ok(Contacts.StoredContacts.Skip(offset).Take(limit));
+        }
     }
 }
